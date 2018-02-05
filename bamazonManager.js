@@ -156,12 +156,14 @@ function newProduct() {
         }
     ]).then(function (newProduct) {
         //TO UPDATE
+        let initialSales = 0;
         connection.query(
-            'INSERT INTO `products`  (product_name,department_name,price,stock_quantity) VALUES (?,?,?,?)', [
+            'INSERT INTO `products`  (product_name,department_name,price,stock_quantity,product_sales) VALUES (?,?,?,?,?)', [
                 newProduct.productName,
                 newProduct.department,
                 newProduct.price,
-                newProduct.inventory
+                newProduct.inventory,
+                initialSales
             ],
             function (err, results, fields) {
                 console.log(results); // results contains rows returned by server
