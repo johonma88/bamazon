@@ -34,6 +34,7 @@ function display() {
             }
             //Display the table 
             console.log(table.toString());
+            
             inquirer.prompt([{
                     type: "input",
                     name: "id_key",
