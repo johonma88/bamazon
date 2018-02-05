@@ -11,6 +11,7 @@ const connection = mysql.createConnection({
 // Global Variables
 let currentStock = 0;
 let cost = 0;
+let currentSales = 0;
 
 
 
@@ -34,7 +35,7 @@ function display() {
             }
             //Display the table 
             console.log(table.toString());
-            
+
             inquirer.prompt([{
                     type: "input",
                     name: "id_key",
@@ -51,11 +52,13 @@ function display() {
                     function (err, results, fields) {
                         if (product.quantity < results[0].stock_quantity) {
                             currentStock = (results[0].stock_quantity - product.quantity);
+                            currentSales = results[0].product_sales;
                             cost = (results[0].price * product.quantity);
                             //TO UPDATE
                             connection.query(
                                 'UPDATE `products` SET ? WHERE ?', [{
-                                        stock_quantity: +currentStock
+                                        stock_quantity: +currentStock,
+                                        product_sales: +currentSales + +cost 
                                     },
                                     {
                                         item_id: product.id_key
