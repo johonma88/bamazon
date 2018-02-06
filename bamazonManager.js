@@ -123,7 +123,7 @@ function addInventory() {
                             ],
                             function (err, data, fields) {
                                 console.log("New Inventory " + currentStock + " for " + results[0].product_name);
-
+                                main();
                             });
                     })
             })
@@ -166,7 +166,7 @@ function newProduct() {
                 initialSales
             ],
             function (err, results, fields) {
-                console.log(results); // results contains rows returned by server
+                console.log(newProduct.productName+" added Sucessfully!"); // results contains rows returned by server
                 main();
             }
         );

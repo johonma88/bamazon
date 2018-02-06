@@ -28,17 +28,19 @@ main();
 
 function salesByDepartment() {
     connection.query(
-        'SELECT departments.department_id, departments.department_name, departments.over_head_cost, products.product_sales FROM `departments`  JOIN `products` ON (departments.department_name=products.department_name) ', //GROUP BY departments.department_id,departments.department_name
+        'SELECT departments.department_id, departments.department_name, departments.over_head_cost, products.product_sales, products.department_name FROM `departments`  INNER JOIN `products` ON (departments.department_name=products.department_name) GROUP BY departments.department_name, products.department_name', //GROUP BY departments.department_id,departments.department_name
         function (err, results, fields) {
+            // console.log(err);
+            // console.log(results);
             var table = new Table({
                 head: ['ID', 'Department', 'Over Head Cost', 'Sales', 'Total Profit'],
                 colWidths: [5, 50, 10, 10, 10]
             });
-            console.log(results);
+            //console.log(err);
 
             for (var i = 0; i < results.length; i++) {
                 table.push(
-                    [results[i].department_id, results[i].department_name, results[i].over_head_cost, results[i].product_sales, (+results[i].over_head_cost * +results[i].product_sales)]
+                    [results[i].department_id, results[i].department_name, results[i].over_head_cost, results[i].product_sales, (+results[i].product_sales - +results[i].over_head_cost)]
                 );
             }
             //Display the table 
