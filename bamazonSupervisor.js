@@ -28,8 +28,8 @@ main();
 
 function salesByDepartment() {
     connection.query(
-        'SELECT departments.department_id, departments.department_name, departments.over_head_cost, products.product_sales, products.department_name FROM `departments`  INNER JOIN `products` ON (departments.department_name=products.department_name) GROUP BY departments.department_id,departments.department_name,  products.product_sales',
-        // GROUP BY departments.department_name, products.department_name',
+        'SELECT departments.department_id, departments.department_name, departments.over_head_cost, sum(products.product_sales) as product_sales, products.department_name FROM `departments`  INNER JOIN `products` ON (departments.department_name=products.department_name) GROUP BY departments.department_id, departments.department_name',
+       
         function (err, results, fields) {
             // console.log(err);
             // console.log(results);
